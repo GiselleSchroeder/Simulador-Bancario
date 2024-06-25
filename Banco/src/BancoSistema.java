@@ -47,26 +47,40 @@ public class BancoSistema extends JFrame {
             System.out.println("Error connecting to database: " + e.getMessage());
         }
 
-        // Tela inicial
-        JPanel telaInicial = new JPanel(new GridBagLayout());
-        GridBagConstraints gbcInicial = new GridBagConstraints();
-        gbcInicial.insets = new Insets(10, 10, 10, 10);
+            // Tela inicial
+    JPanel telaInicial = new JPanel(new GridBagLayout());
+    GridBagConstraints gbcInicial = new GridBagConstraints();
+    gbcInicial.insets = new Insets(10, 10, 10, 10);
 
-        JButton clienteButton = new JButton("Cliente");
-        JButton gerenteButton = new JButton("Gerente");
-        JButton diretorButton = new JButton("Diretor"); // Novo botão
+    JButton clienteButton = new JButton("Cliente");
+    JButton controladorOperacoesButton = new JButton("Controlador de Operações");
 
-        gbcInicial.gridx = 0;
-        gbcInicial.gridy = 0;
-        telaInicial.add(clienteButton, gbcInicial);
+    gbcInicial.gridx = 0;
+    gbcInicial.gridy = 0;
+    telaInicial.add(clienteButton, gbcInicial);
 
-        gbcInicial.gridx = 1;
-        telaInicial.add(gerenteButton, gbcInicial);
+    gbcInicial.gridx = 1;
+    gbcInicial.gridy = 0;
+    telaInicial.add(controladorOperacoesButton, gbcInicial);
 
-        gbcInicial.gridx = 2; // Posicionando o botão "Diretor"
-        telaInicial.add(diretorButton, gbcInicial);
+    mainPanel.add(telaInicial, "Tela Inicial");
 
-        mainPanel.add(telaInicial, "Tela Inicial");
+    // Adiciona os action listeners
+    clienteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "Tela Cliente");
+        }
+    });
+
+    controladorOperacoesButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "Tela Controlador Operacoes");
+        }
+    });
 
         // Tela do Cliente
         JPanel telaCliente = new JPanel(new GridBagLayout());
@@ -84,6 +98,41 @@ public class BancoSistema extends JFrame {
         telaCliente.add(voltarClienteButton, gbcCliente);
 
         mainPanel.add(telaCliente, "Tela Cliente");
+
+        // Tela Controlador Operacoes
+        JPanel telaControladorOperacoes = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcControladorOperacoes = new GridBagConstraints();
+        gbcControladorOperacoes.insets = new Insets(10, 10, 10, 10);
+
+        JButton gerenteButton = new JButton("Gerente");
+        JButton diretorButton = new JButton("Diretor");
+
+        gbcControladorOperacoes.gridx = 0;
+        gbcControladorOperacoes.gridy = 0;
+        telaControladorOperacoes.add(gerenteButton, gbcControladorOperacoes);
+
+        gbcControladorOperacoes.gridx = 1;
+        gbcControladorOperacoes.gridy = 0;
+        telaControladorOperacoes.add(diretorButton, gbcControladorOperacoes);
+
+        mainPanel.add(telaControladorOperacoes, "Tela Controlador Operacoes");
+
+        // Adiciona os action listeners
+        gerenteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "Tela Gerente");
+            }
+        });
+
+        diretorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "Tela Diretor");
+            }
+        });
 
         // Tela do Gerente
         JPanel telaGerente = new JPanel(new GridBagLayout());
